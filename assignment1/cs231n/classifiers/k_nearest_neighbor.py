@@ -1,3 +1,5 @@
+# Jack Alpert 2018
+
 import numpy as np
 
 class KNearestNeighbor(object):
