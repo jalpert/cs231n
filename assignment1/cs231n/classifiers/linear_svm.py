@@ -36,7 +36,7 @@ def svm_loss_naive(W, X, y, reg):
       if margin > 0:
         loss += margin
         xi_scaler += 1
-        dW_j += margin * X[i]
+        dW_j = margin * X[i]
         for k in range(dW.shape[0]):
             dW[k][j] += dW_j[k]
     dW[y[i]] += xi_scaler * X[i] # dW for row correstponding to correct class
