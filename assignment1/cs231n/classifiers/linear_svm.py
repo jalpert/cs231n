@@ -29,6 +29,7 @@ def svm_loss_naive(W, X, y, reg):
     scores = X[i].dot(W)
     correct_class_score = scores[y[i]]
     xi_scaler = 0
+    dWT = dW.transpose()
     for j in range(num_classes):
       if j == y[i]:
         continue
@@ -36,10 +37,9 @@ def svm_loss_naive(W, X, y, reg):
       if margin > 0:
         loss += margin
         xi_scaler += 1
-        dW_j = margin * X[i]
-        for k in range(dW.shape[0]):
-            dW[k][j] += dW_j[k]
-    #dW[y[i]] += xi_scaler * X[i] # dW for row correstponding to correct class
+        dWT[j] += margin * X[i]
+    dWT[y[i]] += xi_scaler * X[i] # dW for row correstponding to correct class
+    dW = dWT.transpose()
 
 
 
@@ -70,8 +70,15 @@ def svm_loss_vectorized(W, X, y, reg):
 
   Inputs and outputs are the same as svm_loss_naive.
   """
+  num_classes = W.shape[1]
+  num_train = X.shape[0]
   loss = 0.0
   dW = np.zeros(W.shape) # initialize the gradient as zero
+  L = 0.0*num_train
+
+  for i in range(num_train):
+      scores = X[i].dot(W)
+      correct_class_score = scores[y[i]]
 
   #############################################################################
   # TODO:                                                                     #
