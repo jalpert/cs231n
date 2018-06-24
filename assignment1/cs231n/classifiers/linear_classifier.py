@@ -54,7 +54,6 @@ class LinearClassifier(object):
       indices = np.random.choice(num_train, batch_size)
       X_batch = X[indices]
       y_batch = y[indices]
-      print(X_batch.shape)
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -68,7 +67,7 @@ class LinearClassifier(object):
       # TODO:                                                                 #
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
-      pass
+      self.W -= grad*learning_rate
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
