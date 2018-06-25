@@ -86,6 +86,7 @@ class TwoLayerNet(object):
     self.params['RH'] = RH
     self.params['q2'] = q2
     self.params['scores'] = scores
+    self.params['X'] = X
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
