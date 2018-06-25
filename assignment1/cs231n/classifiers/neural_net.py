@@ -75,10 +75,11 @@ class TwoLayerNet(object):
     # Store the result in the scores variable, which should be an array of      #
     # shape (N, C).                                                             #
     #############################################################################
-    f = lambda x: x * (x > 0) # ReLU function
-
-    H = f(np.dot(X,W1) + b1) # (N, H)
-    scores = np.dot(H, W2) + b2 # (N, C)
+    q1 = np.dot(X,W1)
+    H = q1 + b1 # (N, H)
+    RH = H * (H > 0) # ReLU function
+    q2 = np.dot(RH, W2)
+    scores = q2 + b2 # (N, C)
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
@@ -101,7 +102,6 @@ class TwoLayerNet(object):
         loss_i = -scores[i][y[i]] + np.log(np.sum(np.exp(scores[i])))
         loss = loss + loss_i / N
 
-
     # Regularization loss
     L2 = lambda A: np.sum(np.square(A))
     loss = loss + (L2(W1) + L2(W2))*reg
@@ -110,13 +110,31 @@ class TwoLayerNet(object):
     #############################################################################
 
     # Backward pass: compute gradients
+    #
+    def reluGradient(W):
+        G = np.zeros(W.shape)
+        G[W<0] = 0
+        G[W>0] = 1
+        return G
+
     grads = {}
     #############################################################################
     # TODO: Compute the backward pass, computing the derivatives of the weights #
     # and biases. Store the results in the grads dictionary. For example,       #
     # grads['W1'] should store the gradient on W1, and be a matrix of same size #
     #############################################################################
-    pass
+    dq2 = 1         # Addition splits
+    dW2 = RH        # Multiplication
+    dRH = W2        # Multiplication
+    dH = reluGradient(H) * dRH
+    dq1 = dH        # Addition splits
+    db1 = dH        # Addition splits
+    dW1 = np.dot(X.T, dq1)
+
+    grads['W1'] = dW1
+    grads['b1'] = db1
+    grads['W2'] = dW2
+    grads['b2'] = 1
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
