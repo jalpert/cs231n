@@ -98,7 +98,6 @@ class LinearClassifier(object):
     ###########################################################################
     scores = X.dot(self.W) # numpy array of dimension (N, C)
     y_pred = np.argmax(scores, axis=1)
-    print(y_pred.shape)
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
