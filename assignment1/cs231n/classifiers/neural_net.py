@@ -99,6 +99,7 @@ class TwoLayerNet(object):
     for i in range(N):
         # Loss_i = -f_y_i + log sum e^(f_i)
         loss_i = -scores[i][y[i]] + np.log(np.sum(np.exp(scores[i])))
+        loss_i = -np.log(np.exp(scores[i][y[i]])/(np.sum(np.exp(scores[i]))))
         loss = loss + loss_i
 
     # Regularization loss
