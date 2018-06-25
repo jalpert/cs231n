@@ -81,12 +81,12 @@ class TwoLayerNet(object):
     q2 = np.dot(RH, W2)
     scores = q2 + b2 # (N, C)
 
-    '''self.params['q1'] = q1
+    self.params['q1'] = q1
     self.params['H'] = H
     self.params['RH'] = RH
     self.params['q2'] = q2
     self.params['scores'] = scores
-    self.params['X'] = X'''
+    self.params['X'] = X
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
@@ -135,16 +135,16 @@ class TwoLayerNet(object):
     dRH = dq2.dot(W2.T) # Multiplication 1•W
     dH = reluGradient(H) * dRH
     dq1 = dH        # Addition splits
-    db1 = dH        # Addition splits
+    db1 = dH.T.dot(np.ones())        # Addition splits
     dW1 = np.dot(X.T, dq1)
 
     grads['W1'] = dW1
     grads['b1'] = db1
     grads['W2'] = dW2
     grads['b2'] = np.ones(b2.shape)
-    #grads['RH'] = dRH
-    #grads['H'] = dH
-    #grads['q1'] = dq1
+    grads['RH'] = dRH
+    grads['H'] = dH
+    grads['q1'] = dq1
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
