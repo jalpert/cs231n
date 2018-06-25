@@ -133,7 +133,7 @@ class TwoLayerNet(object):
     grads['W1'] = dW1
     grads['b1'] = db1
     grads['W2'] = dW2
-    grads['b2'] = np.ones(params['b2'].shape)
+    grads['b2'] = np.ones(b2.shape)
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
