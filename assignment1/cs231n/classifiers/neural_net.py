@@ -130,9 +130,10 @@ class TwoLayerNet(object):
     # and biases. Store the results in the grads dictionary. For example,       #
     # grads['W1'] should store the gradient on W1, and be a matrix of same size #
     #############################################################################
-    dW2 = RH        # Multiplication
-    dRH = W2        # Multiplication
-    dH = reluGradient(H).dot(dRH)
+    dq2 = np.ones(q2.shape)
+    dW2 = RH.T.dot(dq2)        # Multiplication
+    dRH = dq2.dot(W2.T) # Multiplication 1•W
+    dH = reluGradient(H) * dRH
     dq1 = dH        # Addition splits
     db1 = dH        # Addition splits
     dW1 = np.dot(X.T, dq1)
