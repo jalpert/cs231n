@@ -126,7 +126,7 @@ class TwoLayerNet(object):
     dq2 = 1         # Addition splits
     dW2 = RH        # Multiplication
     dRH = W2        # Multiplication
-    dH = reluGradient(H) * dRH
+    dH = reluGradient(H).dot(dRH)
     dq1 = dH        # Addition splits
     db1 = dH        # Addition splits
     dW1 = np.dot(X.T, dq1)
