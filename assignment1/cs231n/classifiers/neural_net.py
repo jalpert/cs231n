@@ -80,6 +80,12 @@ class TwoLayerNet(object):
     RH = H * (H > 0) # ReLU function
     q2 = np.dot(RH, W2)
     scores = q2 + b2 # (N, C)
+
+    self.params['q1'] = q1
+    self.params['H'] = H
+    self.params['RH'] = RH
+    self.params['q2'] = q2
+    self.params['scores'] = scores
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
@@ -134,6 +140,9 @@ class TwoLayerNet(object):
     grads['b1'] = db1
     grads['W2'] = dW2
     grads['b2'] = np.ones(b2.shape)
+    grads['RH'] = dRH
+    grads['H'] = dH
+    grads['q1'] = dq1
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
