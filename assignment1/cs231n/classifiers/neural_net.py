@@ -135,7 +135,7 @@ class TwoLayerNet(object):
     dRH = dq2.dot(W2.T) # Multiplication 1•W
     dH = reluGradient(H) * dRH
     dq1 = dH        # Addition splits
-    db1 = dH.T.dot(np.ones(N,1))        # Addition splits
+    db1 = dH.T.dot(np.ones((N,1)))        # Addition splits
     dW1 = np.dot(X.T, dq1)
 
     grads['W1'] = dW1
