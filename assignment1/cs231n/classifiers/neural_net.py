@@ -103,7 +103,7 @@ class TwoLayerNet(object):
 
     # Regularization loss
     L2 = lambda A: np.sum(np.square(A))
-    loss = loss + L2(W1) + L2(W2)
+    loss = loss + (L2(W1) + L2(W2))*reg
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
