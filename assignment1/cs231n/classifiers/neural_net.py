@@ -133,8 +133,8 @@ class TwoLayerNet(object):
 
     def softmaxGradient(S):
         G = np.zeros(S.shape)
-        for i in G.shape[0]:
-            for j in G.shape[1]:
+        for i in np.arange(G.shape[0]):
+            for j in np.arange(G.shape[1]):
                 if i == j:
                     [i,j] = -S[i]*(1-S[j])
                 else:
