@@ -114,7 +114,7 @@ class TwoLayerNet(object):
     sum_j = np.sum(np.exp(f), axis=1)
     term2 = np.log(sum_j)
     loss = term1 + term2
-    loss /= N
+    loss = np.sum(loss) / N
 
     # Regularization loss
     L2 = lambda A: np.sum(np.square(A))
