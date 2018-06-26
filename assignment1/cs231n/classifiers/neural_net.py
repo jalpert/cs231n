@@ -109,6 +109,13 @@ class TwoLayerNet(object):
         loss_i = -scores[i][y[i]] + np.log(np.sum(np.exp(scores[i])))
         loss = loss + loss_i / N
 
+    f = scores - np.matrix(np.max(scores, axis=1)).T
+    term1 = -f[np.arange(N), y]
+    sum_j = np.sum(np.exp(f), axis=1)
+    term2 = np.log(sum_j)
+    loss = term1 + term2
+    loss /= N 
+
     # Regularization loss
     L2 = lambda A: np.sum(np.square(A))
     loss = loss + (L2(W1) + L2(W2))*reg
