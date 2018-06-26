@@ -136,9 +136,9 @@ class TwoLayerNet(object):
         for i in np.arange(G.shape[0]):
             for j in np.arange(G.shape[1]):
                 if i == j:
-                    G[i,j] = -S[i]*(1-S[j])
+                    G[i,j] = -S[i].dot(1-S[j])
                 else:
-                    G[i,j] = -S[j]*S[i]
+                    G[i,j] = -S[j].dot(S[i])
 
     grads = {}
     #############################################################################
