@@ -139,6 +139,7 @@ class TwoLayerNet(object):
                     G[i,j] = -S[i].dot(1-S[j])
                 else:
                     G[i,j] = -S[j].dot(S[i])
+        return G
 
     grads = {}
     #############################################################################
