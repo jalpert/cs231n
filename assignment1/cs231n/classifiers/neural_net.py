@@ -85,7 +85,7 @@ class TwoLayerNet(object):
     self.params['H'] = H
     self.params['RH'] = RH
     self.params['q2'] = q2
-    self.params['scores'] = scores
+    self.params['f'] = scores
     self.params['X'] = X
     #############################################################################
     #                              END OF YOUR CODE                             #
@@ -150,12 +150,12 @@ class TwoLayerNet(object):
     df = softmaxGradient(f)
     dq2 = np.ones(q2.shape) * df
     db2 = df.T.dot(np.ones(N,))
-    dW2 = RH.T.dot(dq2)        # Multiplication
+    dW2 = RH.T.dot(dq2) + reg*W2        # Multiplication
     dRH = dq2.dot(W2.T) # Multiplication 1•W
     dH = reluGradient(H) * dRH
     dq1 = dH        # Addition splits
     db1 = dH.T.dot(np.ones((N,)))        # Addition splits
-    dW1 = np.dot(X.T, dq1)
+    dW1 = np.dot(X.T, dq1) + reg*W1
 
     grads['W1'] = dW1
     grads['b1'] = db1
@@ -164,6 +164,7 @@ class TwoLayerNet(object):
     grads['RH'] = dRH
     grads['H'] = dH
     grads['q1'] = dq1
+    grads['f'] = df
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
