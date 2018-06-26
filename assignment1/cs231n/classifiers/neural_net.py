@@ -127,9 +127,18 @@ class TwoLayerNet(object):
     #
     def reluGradient(W):
         G = np.zeros(W.shape)
-        G[W<0] = 0
+        #G[W<0] = 0
         G[W>0] = 1
         return G
+
+    def softmaxGradient(S):
+        G = np.zeros(S.shape)
+        for i in G.shape[0]:
+            for j in G.shape[1]:
+                if i == j:
+                    [i,j] = -S[i]*(1-S[j])
+                else:
+                    G[i,j] = -S[j]*S[i]
 
     grads = {}
     #############################################################################
@@ -137,7 +146,9 @@ class TwoLayerNet(object):
     # and biases. Store the results in the grads dictionary. For example,       #
     # grads['W1'] should store the gradient on W1, and be a matrix of same size #
     #############################################################################
-    dq2 = np.ones(q2.shape)
+    df = softmaxGradient(f)
+    dq2 = np.ones(q2.shape) * df
+    db2 = df.T.dot(np.ones(N,))
     dW2 = RH.T.dot(dq2)        # Multiplication
     dRH = dq2.dot(W2.T) # Multiplication 1•W
     dH = reluGradient(H) * dRH
@@ -148,7 +159,7 @@ class TwoLayerNet(object):
     grads['W1'] = dW1
     grads['b1'] = db1
     grads['W2'] = dW2
-    grads['b2'] = np.ones(b2.shape)
+    grads['b2'] = db2
     grads['RH'] = dRH
     grads['H'] = dH
     grads['q1'] = dq1
