@@ -104,12 +104,12 @@ class TwoLayerNet(object):
     # classifier loss.                                                          #
     #############################################################################
     # Data loss
-    for i in range(N):
+    '''for i in range(N):
         # Loss_i = -f_y_i + log sum e^(f_i)
         loss_i = -scores[i][y[i]] + np.log(np.sum(np.exp(scores[i])))
-        loss = loss + loss_i / N
+        loss = loss + loss_i / N'''
 
-    f = scores #- np.matrix(np.max(scores, axis=1)).T
+    f = scores - np.matrix(np.max(scores, axis=1)).T
     term1 = -f[np.arange(N), y]
     sum_j = np.sum(np.exp(f), axis=1)
     term2 = np.log(sum_j)
